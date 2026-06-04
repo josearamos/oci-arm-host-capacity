@@ -37,6 +37,9 @@ $config = new OciConfig(
     (int) getenv('OCI_MEMORY_IN_GBS')
 );
 
+echo "=== COMPROBACIÓN DE VARIABLES DE ENTORNO ===\n";
+echo "OCI_USER_ID: " . (getenv('OCI_USER_ID') ?: $_ENV['OCI_USER_ID'] ?: 'VACÍO') . "\n";
+
 $bootVolumeSizeInGBs = (string) getenv('OCI_BOOT_VOLUME_SIZE_IN_GBS');
 $bootVolumeId = (string) getenv('OCI_BOOT_VOLUME_ID');
 if ($bootVolumeSizeInGBs) {
