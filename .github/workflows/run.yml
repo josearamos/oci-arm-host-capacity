@@ -5,6 +5,10 @@ on:
   schedule:
     - cron: '*/15 * * * *' # Se ejecutará automáticamente cada 15 minutos
 
+permissions:
+  contents: read
+  id-token: write
+
 jobs:
   run:
     runs-on: ubuntu-latest
