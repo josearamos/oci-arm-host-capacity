@@ -1,0 +1,47 @@
+name: Execute script
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '*/15 * * * *' # Se ejecuta automáticamente cada 15 minutos
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+    name: OCI Instance Creator (PHP 8.3)
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: curl, mbstring, openssl
+
+      - name: Install dependencies
+        run: |
+          composer install --no-dev --prefer-dist --no-progress
+
+      - name: Run OCI Instance Creator
+        run: |
+          php index.php
+        env:
+          # Mapeo de variables desde los Secrets de tu GitHub
+          OCI_REGION: ${{ secrets.OCI_REGION }}
+          OCI_USER_OCID: ${{ secrets.OCI_USER_OCID }}
+          OCI_TENANCY_OCID: ${{ secrets.OCI_TENANCY_OCID }}
+          OCI_FINGERPRINT: ${{ secrets.OCI_FINGERPRINT }}
+          OCI_PRIVATE_KEY: ${{ secrets.OCI_PRIVATE_KEY }}
+          OCI_SUBNET_ID: ${{ secrets.OCI_SUBNET_ID }}
+          
+          # Configuraciones opcionales para la máquina Ampere
+          OCI_MAX_INSTANCES: ${{ secrets.OCI_MAX_INSTANCES || '1' }}
+          OCI_OCPUS: ${{ secrets.OCI_OCPUS || '4' }}
+          OCI_MEMORY_IN_GBS: ${{ secrets.OCI_MEMORY_IN_GBS || '24' }}
+          OCI_SSH_PUBLIC_KEY: ${{ secrets.OCI_SSH_PUBLIC_KEY }}
+          
+          # Notificaciones (Telegram / Discord)
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
