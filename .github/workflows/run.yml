@@ -28,16 +28,16 @@ jobs:
 
       - name: Run OCI Instance Creator
         env:
-          OCI_TENANCY_OCID: ${{ secrets.OCI_TENANCY_OCID }}
-          OCI_USER_OCID: ${{ secrets.OCI_USER_OCID }}
-          OCI_FINGERPRINT: ${{ secrets.OCI_FINGERPRINT }}
-          OCI_PRIVATE_KEY: ${{ secrets.OCI_PRIVATE_KEY }}
-          OCI_REGION: ${{ secrets.OCI_REGION }}
-          OCI_SUBNET_ID: ${{ secrets.OCI_SUBNET_ID }}
-          OCI_MAX_INSTANCES: ${{ secrets.OCI_MAX_INSTANCES || 1 }}
-          OCI_OCPUS: ${{ secrets.OCI_OCPUS || 4 }}
-          OCI_MEMORY_IN_GBS: ${{ secrets.OCI_MEMORY_IN_GBS || 24 }}
-          OCI_SSH_PUBLIC_KEY: ${{ secrets.OCI_SSH_PUBLIC_KEY }}
-          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          OCI_TENANCY_OCID: "${{ secrets.OCI_TENANCY_OCID }}"
+          OCI_USER_OCID: "${{ secrets.OCI_USER_OCID }}"
+          OCI_FINGERPRINT: "${{ secrets.OCI_FINGERPRINT }}"
+          OCI_PRIVATE_KEY: "${{ secrets.OCI_PRIVATE_KEY }}"
+          OCI_REGION: "${{ secrets.OCI_REGION }}"
+          OCI_SUBNET_ID: "${{ secrets.OCI_SUBNET_ID }}"
+          OCI_MAX_INSTANCES: "1"
+          OCI_OCPUS: "4"
+          OCI_MEMORY_IN_GBS: "24"
+          OCI_SSH_PUBLIC_KEY: "${{ secrets.OCI_SSH_PUBLIC_KEY }}"
+          TELEGRAM_TOKEN: "${{ secrets.TELEGRAM_TOKEN }}"
+          TELEGRAM_CHAT_ID: "${{ secrets.TELEGRAM_CHAT_ID }}"
         run: php index.php
