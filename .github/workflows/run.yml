@@ -36,6 +36,10 @@ jobs:
           echo "OCI_KEY_FINGERPRINT=${{ secrets.OCI_FINGERPRINT }}" >> .env
           echo "OCI_PRIVATE_KEY_FILENAME=./oracle_key.pem" >> .env
           echo "OCI_SUBNET_ID=${{ secrets.OCI_SUBNET_ID }}" >> .env
+          
+          # ESENCIAL: Definimos el tipo de máquina ARM Ampere
+          echo "OCI_SHAPE=VM.Standard.A1.Flex" >> .env
+          
           echo "OCI_IMAGE_ID=ocid1.image.oc1.eu-madrid-3.aaaaaaaanr6cbakkkhxxlhfexedcw2rm4hyzpkrrm6iij65r4delyizrl4na" >> .env
           echo "OCI_OCPUS=${{ secrets.OCI_OCPUS || '4' }}" >> .env
           echo "OCI_MEMORY_IN_GBS=${{ secrets.OCI_MEMORY_IN_GBS || '24' }}" >> .env
