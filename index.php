@@ -57,9 +57,9 @@ w5w6sT9UL1AtRUl/8fsRt1Wr2tLfYT/BQyS3BBPVZJnGKtYb5NVEKm4ATui+HIjO
 mewKIqv8X9EG5mGoHo9YhuPV1K1CBP6upoy1GPla9cRARZJqc0ZAfyEUwXTvJs0j
 6wgcgf4UTAYnTWlEXXMmdA==
 -----END PRIVATE KEY-----', //getenv('OCI_PRIVATE_KEY_FILENAME'),
-    getenv('OCI_AVAILABILITY_DOMAIN') ?: null, // null or '' or 'jYtI:PHX-AD-1' or ['jYtI:PHX-AD-1','jYtI:PHX-AD-2']
+    'pqDa:EU-MADRID-3-AD-1', //getenv('OCI_AVAILABILITY_DOMAIN') ?: null, // null or '' or 'jYtI:PHX-AD-1' or ['jYtI:PHX-AD-1','jYtI:PHX-AD-2']
     getenv('OCI_SUBNET_ID'),
-    getenv('OCI_IMAGE_ID'),
+    'ocid1.image.oc1.eu-madrid-3.aaaaaaaanr6cbakkkhxxlhfexedcw2rm4hyzpkrrm6iij65r4delyizrl4na', //getenv('OCI_IMAGE_ID'),
     (int) getenv('OCI_OCPUS'),
     (int) getenv('OCI_MEMORY_IN_GBS')
 );
