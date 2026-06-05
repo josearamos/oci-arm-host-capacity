@@ -26,29 +26,23 @@ jobs:
 
       - name: Run OCI Instance Creator
         run: |
-          # Este comando mágico crea el archivo físico de la clave antes de arrancar PHP
+          # 1. Escribimos la clave privada física en el disco
           echo "${{ secrets.OCI_PRIVATE_KEY }}" > oracle_key.pem
+          
+          # 2. CREAMOS EL ARCHIVO .ENV AL VUELO CON TUS SECRETS (Bypass definitivo)
+          echo "OCI_REGION=${{ secrets.OCI_REGION }}" > .env
+          echo "OCI_USER_ID=${{ secrets.OCI_USER_OCID }}" >> .env
+          echo "OCI_TENANCY_ID=${{ secrets.OCI_TENANCY_OCID }}" >> .env
+          echo "OCI_KEY_FINGERPRINT=${{ secrets.OCI_FINGERPRINT }}" >> .env
+          echo "OCI_PRIVATE_KEY_FILENAME=./oracle_key.pem" >> .env
+          echo "OCI_SUBNET_ID=${{ secrets.OCI_SUBNET_ID }}" >> .env
+          echo "OCI_IMAGE_ID=ocid1.image.oc1.eu-madrid-3.aaaaaaaanr6cbakkkhxxlhfexedcw2rm4hyzpkrrm6iij65r4delyizrl4na" >> .env
+          echo "OCI_OCPUS=${{ secrets.OCI_OCPUS || '4' }}" >> .env
+          echo "OCI_MEMORY_IN_GBS=${{ secrets.OCI_MEMORY_IN_GBS || '24' }}" >> .env
+          echo "OCI_MAX_INSTANCES=${{ secrets.OCI_MAX_INSTANCES || '1' }}" >> .env
+          echo "OCI_SSH_PUBLIC_KEY=${{ secrets.OCI_SSH_PUBLIC_KEY }}" >> .env
+          echo "TELEGRAM_BOT_API_KEY=${{ secrets.TELEGRAM_TOKEN }}" >> .env
+          echo "TELEGRAM_USER_ID=${{ secrets.TELEGRAM_CHAT_ID }}" >> .env
+
+          # 3. Arrancamos el script. Al existir un archivo '.env', PHP lo leerá de forma nativa
           php index.php
-        env:
-          # Mapeo de variables esenciales
-          OCI_REGION: ${{ secrets.OCI_REGION }}
-          OCI_USER_OCID: ${{ secrets.OCI_USER_OCID }}
-          OCI_TENANCY_OCID: ${{ secrets.OCI_TENANCY_OCID }}
-          OCI_FINGERPRINT: ${{ secrets.OCI_FINGERPRINT }}
-          OCI_SUBNET_ID: ${{ secrets.OCI_SUBNET_ID }}
-          
-          # Le pasamos la ruta absoluta del archivo que acabamos de crear arriba
-          OCI_PRIVATE_KEY_FILENAME: './oracle_key.pem'
-          
-          # ID de la Imagen Obligatoria para Madrid (Ubuntu 22.04 ARM)
-          OCI_IMAGE_ID: 'ocid1.image.oc1.eu-madrid-1.aaaaaaaamv3u6j6j6ywhgffg3u7v6b2s2o5v7z5vmdgxtw3g4vpaaaaa'
-          
-          # Configuraciones para la máquina Ampere
-          OCI_MAX_INSTANCES: ${{ secrets.OCI_MAX_INSTANCES || '1' }}
-          OCI_OCPUS: ${{ secrets.OCI_OCPUS || '4' }}
-          OCI_MEMORY_IN_GBS: ${{ secrets.OCI_MEMORY_IN_GBS || '24' }}
-          OCI_SSH_PUBLIC_KEY: ${{ secrets.OCI_SSH_PUBLIC_KEY }}
-          
-          # Notificaciones (Telegram / Discord)
-          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
