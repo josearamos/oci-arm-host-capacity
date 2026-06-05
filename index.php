@@ -1,4 +1,13 @@
 <?php
+// Aseguramos que NO existan variables de texto plano interfiriendo con la librería
+unset($_ENV['OCI_PRIVATE_KEY']);
+putenv('OCI_PRIVATE_KEY=');
+
+// Forzamos explícitamente la ruta del archivo físico que creamos en el workflow
+$_ENV['OCI_PRIVATE_KEY_FILENAME'] = __DIR__ . '/oracle_key.pem';
+putenv('OCI_PRIVATE_KEY_FILENAME=' . __DIR__ . '/oracle_key.pem');
+
+// El resto de tu código original sigue aquí...
 declare(strict_types=1);
 
 
