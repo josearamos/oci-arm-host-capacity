@@ -1,1 +1,52 @@
+name: Execute script 2
 
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '*/15 * * * *' # Se ejecuta automáticamente cada 15 minutos
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+    name: OCI Instance Creator (PHP 8.3)
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: curl, mbstring, openssl
+
+      - name: Install dependencies
+        run: |
+          composer install --no-dev --prefer-dist --no-progress
+
+      - name: Run OCI Instance Creator
+        run: |
+          # 1. Escribimos la clave privada física en el disco
+          echo "${{ secrets.OCI_PRIVATE_KEY }}" > oracle_key.pem
+          
+          # 2. CREAMOS EL ARCHIVO .ENV AL VUELO CON TUS SECRETS (Bypass definitivo)
+          echo "OCI_REGION=${{ secrets.OCI_REGION }}" > .env
+          echo "OCI_USER_ID=${{ secrets.OCI_USER_OCID }}" >> .env
+          echo "OCI_TENANCY_ID=${{ secrets.OCI_TENANCY_OCID }}" >> .env
+          echo "OCI_KEY_FINGERPRINT=${{ secrets.OCI_FINGERPRINT }}" >> .env
+          echo "OCI_PRIVATE_KEY_FILENAME=./oracle_key.pem" >> .env
+          echo "OCI_SUBNET_ID=${{ secrets.OCI_SUBNET_ID }}" >> .env
+          
+          # ESENCIAL: Definimos el tipo de máquina ARM Ampere
+          echo "OCI_SHAPE=VM.Standard.A1.Flex" >> .env
+          
+          echo "OCI_IMAGE_ID=ocid1.image.oc1.eu-madrid-3.aaaaaaaanr6cbakkkhxxlhfexedcw2rm4hyzpkrrm6iij65r4delyizrl4na" >> .env
+          echo "OCI_OCPUS=${{ secrets.OCI_OCPUS || '4' }}" >> .env
+          echo "OCI_MEMORY_IN_GBS=${{ secrets.OCI_MEMORY_IN_GBS || '24' }}" >> .env
+          echo "OCI_MAX_INSTANCES=${{ secrets.OCI_MAX_INSTANCES || '1' }}" >> .env
+          echo "OCI_SSH_PUBLIC_KEY=${{ secrets.OCI_SSH_PUBLIC_KEY }}" >> .env
+          echo "TELEGRAM_BOT_API_KEY=${{ secrets.TELEGRAM_TOKEN }}" >> .env
+          echo "TELEGRAM_USER_ID=${{ secrets.TELEGRAM_CHAT_ID }}" >> .env
+
+          # 3. Arrancamos el script. Al existir un archivo '.env', PHP lo leerá de forma nativa
+          php index.php
