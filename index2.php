@@ -11,8 +11,8 @@ unset($_ENV['OCI2_PRIVATE_KEY']);
 putenv('OCI2_PRIVATE_KEY=');
 
 // Forzamos explícitamente la ruta del archivo físico que creamos en el workflow
-$_ENV['OCI2_PRIVATE_KEY_FILENAME'] = __DIR__ . '/oracle_key.pem';
-putenv('OCI2_PRIVATE_KEY_FILENAME=' . __DIR__ . '/oracle_key.pem');
+$_ENV['OCI_PRIVATE_KEY_FILENAME'] = __DIR__ . '/oracle_key.pem';
+putenv('OCI_PRIVATE_KEY_FILENAME=' . __DIR__ . '/oracle_key.pem');
 
 require "{$pathPrefix}vendor/autoload.php";
 
@@ -38,8 +38,8 @@ $config = new OciConfig(
     getenv('OCI2_USER_ID'),
     getenv('OCI2_TENANCY_ID'),
     getenv('OCI2_KEY_FINGERPRINT'),
-    getenv('OCI2_PRIVATE_KEY_FILENAME'),
-    getenv('OCI_AVAILABILITY_DOMAIN') ?: null, // null or '' or 'jYtI:PHX-AD-1' or ['jYtI:PHX-AD-1','jYtI:PHX-AD-2']
+    getenv('OCI_PRIVATE_KEY_FILENAME'),
+    getenv('OCI2_AVAILABILITY_DOMAIN') ?: null, // null or '' or 'jYtI:PHX-AD-1' or ['jYtI:PHX-AD-1','jYtI:PHX-AD-2']
     getenv('OCI2_SUBNET_ID'),
     getenv('OCI_IMAGE_ID'),
     (int) getenv('OCI_OCPUS'),
