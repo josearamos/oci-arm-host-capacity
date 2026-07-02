@@ -33,6 +33,18 @@ $dotenv->safeLoad();
  *
  * README.md now has all the information.
  */
+echo "OCI_REGION=" . var_export(getenv('OCI_REGION'), true) . PHP_EOL;
+echo "OCI_USER_ID=" . var_export(getenv('OCI_USER_ID'), true) . PHP_EOL;
+echo "OCI_TENANCY_ID=" . var_export(getenv('OCI_TENANCY_ID'), true) . PHP_EOL;
+echo "OCI_KEY_FINGERPRINT=" . var_export(getenv('OCI_KEY_FINGERPRINT'), true) . PHP_EOL;
+echo "OCI_PRIVATE_KEY_FILENAME=" . var_export(getenv('OCI_PRIVATE_KEY_FILENAME'), true) . PHP_EOL;
+
+echo "¿Existe oracle_key.pem? ";
+var_export(file_exists(__DIR__ . '/oracle_key.pem'));
+echo PHP_EOL;
+
+exit;
+
 $config = new OciConfig(
     getenv('OCI_REGION'),
     getenv('OCI_USER_ID'),
