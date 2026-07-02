@@ -33,15 +33,6 @@ $dotenv->safeLoad();
  *
  * README.md now has all the information.
  */
-var_dump([
-    'OCI2_REGION' => getenv('OCI2_REGION'),
-    'OCI2_USER_ID' => getenv('OCI2_USER_ID'),
-    'OCI2_TENANCY_ID' => getenv('OCI2_TENANCY_ID'),
-    'OCI2_IMAGE_ID' => getenv('OCI2_IMAGE_ID'),
-    'OCI2_SUBNET_ID' => getenv('OCI2_SUBNET_ID'),
-]);
-exit;
-
 $config = new OciConfig(
     getenv('OCI2_REGION'),
     getenv('OCI2_USER_ID'),
