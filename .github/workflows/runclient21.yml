@@ -1,4 +1,4 @@
-name: Execute script Client2
+name: Execute script Client2.2
 
 on:
   workflow_dispatch:
