@@ -41,7 +41,7 @@ $config = new OciConfig(
     getenv('OCI_PRIVATE_KEY_FILENAME'),
     getenv('OCI2_AVAILABILITY_DOMAIN') ?: null, // null or '' or 'jYtI:PHX-AD-1' or ['jYtI:PHX-AD-1','jYtI:PHX-AD-2']
     getenv('OCI2_SUBNET_ID'),
-    getenv('OCI_IMAGE_ID'),
+    getenv('OCI2_IMAGE_ID'),
     (int) getenv('OCI_OCPUS'),
     (int) getenv('OCI_MEMORY_IN_GBS')
 );
