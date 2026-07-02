@@ -27,7 +27,7 @@ jobs:
       - name: Run OCI Instance Creator
         run: |
           # 1. Escribimos la clave privada física en el disco
-          echo "${{ secrets.OCI_PRIVATE_KEY }}" > oracle_key.pem
+          echo "${{ secrets.OCI2_PRIVATE_KEY }}" > oracle_key.pem
           
           # 2. CREAMOS EL ARCHIVO .ENV AL VUELO CON TUS SECRETS (Bypass definitivo)
           echo "OCI_REGION=${{ secrets.OCI2_REGION }}" > .env
