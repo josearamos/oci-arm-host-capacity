@@ -31,8 +31,8 @@ jobs:
           
           # 2. CREAMOS EL ARCHIVO .ENV AL VUELO CON TUS SECRETS (Bypass definitivo)
           echo "OCI_REGION=${{ secrets.OCI2_REGION }}" > .env
-          echo "OCI_USER_ID=${{ secrets.OCI2_USER_OCID }}" >> .env
-          echo "OCI_TENANCY_ID=${{ secrets.OCI2_TENANCY_OCID }}" >> .env
+          echo "OCI_USER_ID=${{ secrets.OCI2_USER_ID }}" >> .env
+          echo "OCI_TENANCY_ID=${{ secrets.OCI2_TENANCY_ID }}" >> .env
           echo "OCI_KEY_FINGERPRINT=${{ secrets.OCI2_KEY_FINGERPRINT }}" >> .env
           echo "OCI_PRIVATE_KEY_FILENAME=./oracle_key.pem" >> .env
           echo "OCI_SUBNET_ID=${{ secrets.OCI2_SUBNET_ID }}" >> .env
