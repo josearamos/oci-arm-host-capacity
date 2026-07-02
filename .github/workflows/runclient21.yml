@@ -3,7 +3,7 @@ name: Execute script Client2.1
 on:
   workflow_dispatch:
   schedule:
-    - cron: '*/15 * * * *' # Se ejecuta automáticamente cada 15 minutos
+    - cron: '*/5 * * * *' # Se ejecuta automáticamente cada 15 minutos
 
 jobs:
   run-script:
