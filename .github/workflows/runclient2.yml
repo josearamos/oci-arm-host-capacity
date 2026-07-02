@@ -30,17 +30,17 @@ jobs:
           echo "${{ secrets.OCI_PRIVATE_KEY }}" > oracle_key.pem
           
           # 2. CREAMOS EL ARCHIVO .ENV AL VUELO CON TUS SECRETS (Bypass definitivo)
-          echo "OCI2_REGION=${{ secrets.OCI2_REGION }}" > .env
-          echo "OCI2_USER_ID=${{ secrets.OCI2_USER_OCID }}" >> .env
-          echo "OCI2_TENANCY_ID=${{ secrets.OCI2_TENANCY_OCID }}" >> .env
-          echo "OCI2_KEY_FINGERPRINT=${{ secrets.OCI2_KEY_FINGERPRINT }}" >> .env
+          echo "OCI_REGION=${{ secrets.OCI2_REGION }}" > .env
+          echo "OCI_USER_ID=${{ secrets.OCI2_USER_OCID }}" >> .env
+          echo "OCI_TENANCY_ID=${{ secrets.OCI2_TENANCY_OCID }}" >> .env
+          echo "OCI_KEY_FINGERPRINT=${{ secrets.OCI2_KEY_FINGERPRINT }}" >> .env
           echo "OCI_PRIVATE_KEY_FILENAME=./oracle_key.pem" >> .env
-          echo "OCI2_SUBNET_ID=${{ secrets.OCI2_SUBNET_ID }}" >> .env
+          echo "OCI_SUBNET_ID=${{ secrets.OCI2_SUBNET_ID }}" >> .env
           
           # ESENCIAL: Definimos el tipo de máquina ARM Ampere
           echo "OCI_SHAPE=VM.Standard.A1.Flex" >> .env
           
-          echo "OCI2_IMAGE_ID=${{ secrets.OCI2_IMAGE_ID }}" >> .env
+          echo "OCI_IMAGE_ID=${{ secrets.OCI2_IMAGE_ID }}" >> .env
           echo "OCI_OCPUS=${{ secrets.OCI_OCPUS || '4' }}" >> .env
           echo "OCI_MEMORY_IN_GBS=${{ secrets.OCI_MEMORY_IN_GBS || '24' }}" >> .env
           echo "OCI_MAX_INSTANCES=${{ secrets.OCI_MAX_INSTANCES || '1' }}" >> .env
@@ -49,4 +49,4 @@ jobs:
           echo "TELEGRAM_USER_ID=${{ secrets.TELEGRAM_CHAT_ID }}" >> .env
 
           # 3. Arrancamos el script. Al existir un archivo '.env', PHP lo leerá de forma nativa
-          php index2.php
+          php index.php
